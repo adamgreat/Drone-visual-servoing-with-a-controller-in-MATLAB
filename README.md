@@ -1,11 +1,15 @@
 # ros_erle_pattern_follower
-A ROS package to control a copter so that it follows ArUco patterns with the bottom camera.
+Template of a ROS package to control a copter so that it follows ArUco patterns with the bottom camera.
 
-Quick setup:
+Setup:
 ```bash
 # Within a catkin directory
 cd src
-git clone https://github.com/IkerZamora/ros_erle_pattern_follower
+git clone https://github.com/erlerobot/ros_erle_pattern_follower
+```
+Adapt the code to your necesities following the TO DO comments in `src/image_subscriber.cpp`. Then run:
+
+```
 cd ..; catkin_make
 source devel/setup.bash
 rosrun ros_erle_pattern_follower ros_erle_pattern_follower
