@@ -5,7 +5,7 @@ Setup:
 ```bash
 # Within a catkin directory
 cd src
-git clone https://github.com/erlerobot/ros_erle_pattern_follower
+git clone https://github.com/IkerZamora/ros_erle_pattern_follower
 ```
 Adapt the code to your necesities following the TO DO comments in `src/image_subscriber.cpp`. Then run:
 
