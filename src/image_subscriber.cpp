@@ -6,6 +6,7 @@
 #include <iostream>
 #include <mavros_msgs/OverrideRCIn.h>
 #include <mavros_msgs/State.h>
+#include "geometry_msgs/Pose2D" //for pub err
 
 #define FACTOR  0.6
 
@@ -21,6 +22,9 @@ ros::Subscriber mavros_state_sub;
 
 // RC publisher
 ros::Publisher pub;
+
+//Matlab/Simulink publisher
+ros::Publisher err_pub;
 
 // Time control
 ros::Time lastTime;
@@ -74,6 +78,9 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
 
         // Create RC msg
         mavros_msgs::OverrideRCIn msg;
+        
+        // Create MATLAB/Simulink msg
+        geometry_msgs::Pose2D err_msg;
 
         lastMarkX = MarkX;
         lastMarkY = MarkY;
@@ -139,6 +146,11 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
         msg.channels[7] = 0;
 
         pub.publish(msg);
+        
+        err_msg.x=ErX;
+        err_msg.y=ErY;
+        err_pub.publish(err_msg);
+        ROS_INFO("err: [%f, %f]", err_msg.x, err_msg.y);
 
         cv::imshow("view", InImage);
         cv::waitKey(30);
@@ -169,6 +181,7 @@ int main(int argc, char **argv)
     image_transport::ImageTransport it(nh);
     sub = it.subscribe("/erlecopter/bottom/image_raw", 1, imageCallback);
     mavros_state_sub = nh.subscribe("/mavros/state", 1, mavrosStateCb);
-    pub = nh.advertise<mavros_msgs::OverrideRCIn>("/mavros/rc/override", 10);;
+    pub = nh.advertise<mavros_msgs::OverrideRCIn>("/mavros/rc/override", 10);
+    err_pub = nh.advertise<geometry_msgs::Pose2D>("/matlab/err",1);
     ros::spin();
 }
