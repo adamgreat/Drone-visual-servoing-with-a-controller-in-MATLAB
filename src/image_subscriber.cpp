@@ -6,7 +6,7 @@
 #include <iostream>
 #include <mavros_msgs/OverrideRCIn.h>
 #include <mavros_msgs/State.h>
-#include "geometry_msgs/Pose2D" //for pub err
+#include "geometry_msgs/Pose2D.h" //for pub err
 
 #define FACTOR  0.6
 
