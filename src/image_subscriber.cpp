@@ -7,6 +7,17 @@
 #include <mavros_msgs/OverrideRCIn.h>
 #include <mavros_msgs/State.h>
 #include "geometry_msgs/Pose2D.h" //for pub err
+#include "geometry_msgs/PoseStamped.h"
+#include <tf/transform_datatypes.h>
+#include <math.h>       /* sin */
+
+#define PI 3.14159265
+//Create global variables and declare a function
+double quatx;
+double quaty;
+double quatz;
+double quatw;
+double global_yaw;
 
 #define FACTOR  0.6
 
@@ -44,6 +55,8 @@ std::string mode;
 bool guided;
 bool armed;
 
+void ComPoseCallback(const geometry_msgs::PoseStamped& msg);
+
 void imageCallback(const sensor_msgs::ImageConstPtr& msg)
 {
     try
@@ -55,7 +68,7 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
         char tab2[1024];
         strncpy(tab2, mode.c_str(), sizeof(tab2));
         tab2[sizeof(tab2) - 1] = 0;
-        ROS_INFO("Marker = (%f , %f) | LastMarker = (%f , %f) \n timeBetweenMarkers = %fs | lastMarkVelX = (%f , %f)\n Roll = %f | Pitch = %f\n Mode = %s \n", MarkX, MarkY, lastMarkX, lastMarkY, timeBetweenMarkers, lastMarkVelX, lastMarkVelY, Roll, Pitch, tab2);
+        //ROS_INFO("Marker = (%f , %f) | LastMarker = (%f , %f) \n timeBetweenMarkers = %fs | lastMarkVelX = (%f , %f)\n Roll = %f | Pitch = %f\n Mode = %s \n", MarkX, MarkY, lastMarkX, lastMarkY, timeBetweenMarkers, lastMarkVelX, lastMarkVelY, Roll, Pitch, tab2);
 
         aruco::MarkerDetector MDetector;
         vector<aruco::Marker> Markers;
@@ -146,9 +159,9 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
         msg.channels[7] = 0;
 
         pub.publish(msg);
-        
-        err_msg.x=ErX;
-        err_msg.y=ErY;
+        //
+        err_msg.x=ErX*cos(global_yaw)+ErY*sin(global_yaw);
+        err_msg.y=ErY*cos(global_yaw)+ErX*sin(global_yaw);
         err_pub.publish(err_msg);
         ROS_INFO("err: [%f, %f]", err_msg.x, err_msg.y);
 
@@ -181,7 +194,32 @@ int main(int argc, char **argv)
     image_transport::ImageTransport it(nh);
     sub = it.subscribe("/erlecopter/bottom/image_raw", 1, imageCallback);
     mavros_state_sub = nh.subscribe("/mavros/state", 1, mavrosStateCb);
+    ros::Subscriber ComPose_sub = nh.subscribe("/mavros/local_position/pose", 1000, ComPoseCallback);
     pub = nh.advertise<mavros_msgs::OverrideRCIn>("/mavros/rc/override", 10);
     err_pub = nh.advertise<geometry_msgs::Pose2D>("/matlab/err",1);
     ros::spin();
+
+
+}
+
+void ComPoseCallback(const geometry_msgs::PoseStamped& msg)            
+{
+    //ROS_INFO("Seq: [%d]", msg.header.seq);
+    //ROS_INFO("Position-> x: [%f], y: [%f], z: [%f]", msg.pose.position.x,msg.pose.position.y, msg.pose.position.z);
+    //ROS_INFO("Orientation-> x: [%f], y: [%f], z: [%f], w: [%f]", msg.pose.orientation.x, msg.pose.orientation.y, msg.pose.orientation.z, msg.pose.orientation.w);
+
+   float linearposx=msg.pose.position.x;
+   float linearposy=msg.pose.position.y;
+   double quatx= msg.pose.orientation.x;
+   double quaty= msg.pose.orientation.y;
+   double quatz= msg.pose.orientation.z;
+   double quatw= msg.pose.orientation.w;
+
+    tf::Quaternion q(quatx, quaty, quatz, quatw);
+    tf::Matrix3x3 m(q);
+    double roll, pitch, yaw;
+    m.getRPY(roll, pitch, yaw);
+    global_yaw=yaw;
+    ROS_INFO("Roll: [%f],Pitch: [%f],Yaw: [%f]",roll,pitch,yaw);
+    return ;
 }
