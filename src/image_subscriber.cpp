@@ -10,6 +10,7 @@
 #include "geometry_msgs/PoseStamped.h"
 #include <tf/transform_datatypes.h>
 #include <math.h>       /* sin */
+#include <std_msgs/Float64.h> //for publishing yaw
 
 #define PI 3.14159265
 //Create global variables and declare a function
@@ -17,7 +18,7 @@ double quatx;
 double quaty;
 double quatz;
 double quatw;
-double global_yaw;
+//double global_yaw;
 
 #define FACTOR  0.6
 
@@ -36,6 +37,9 @@ ros::Publisher pub;
 
 //Matlab/Simulink publisher
 ros::Publisher err_pub;
+
+//Yaw publisher
+ros::Publisher yaw_pub;
 
 // Time control
 ros::Time lastTime;
@@ -94,6 +98,7 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
         
         // Create MATLAB/Simulink msg
         geometry_msgs::Pose2D err_msg;
+
 
         lastMarkX = MarkX;
         lastMarkY = MarkY;
@@ -160,8 +165,8 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
 
         pub.publish(msg);
         //
-        err_msg.x=ErX*cos(global_yaw)+ErY*sin(global_yaw);
-        err_msg.y=ErY*cos(global_yaw)+ErX*sin(global_yaw);
+        err_msg.x=ErX;
+        err_msg.y=ErY;
         err_pub.publish(err_msg);
         ROS_INFO("err: [%f, %f]", err_msg.x, err_msg.y);
 
@@ -197,6 +202,7 @@ int main(int argc, char **argv)
     ros::Subscriber ComPose_sub = nh.subscribe("/mavros/local_position/pose", 1000, ComPoseCallback);
     pub = nh.advertise<mavros_msgs::OverrideRCIn>("/mavros/rc/override", 10);
     err_pub = nh.advertise<geometry_msgs::Pose2D>("/matlab/err",1);
+    yaw_pub = nh.advertise<std_msgs::Float64>("/matlab/yaw",1);
     ros::spin();
 
 
@@ -204,6 +210,9 @@ int main(int argc, char **argv)
 
 void ComPoseCallback(const geometry_msgs::PoseStamped& msg)            
 {
+    // Create MATLAB/Simulink msg for yaw
+    std_msgs::Float64 yaw_msg;
+
     //ROS_INFO("Seq: [%d]", msg.header.seq);
     //ROS_INFO("Position-> x: [%f], y: [%f], z: [%f]", msg.pose.position.x,msg.pose.position.y, msg.pose.position.z);
     //ROS_INFO("Orientation-> x: [%f], y: [%f], z: [%f], w: [%f]", msg.pose.orientation.x, msg.pose.orientation.y, msg.pose.orientation.z, msg.pose.orientation.w);
@@ -219,7 +228,9 @@ void ComPoseCallback(const geometry_msgs::PoseStamped& msg)
     tf::Matrix3x3 m(q);
     double roll, pitch, yaw;
     m.getRPY(roll, pitch, yaw);
-    global_yaw=yaw;
+    //global_yaw=yaw;
     ROS_INFO("Roll: [%f],Pitch: [%f],Yaw: [%f]",roll,pitch,yaw);
+    yaw_msg.data=yaw;
+    yaw_pub.publish(yaw_msg);
     return ;
 }
