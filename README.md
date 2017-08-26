@@ -1,16 +1,15 @@
-# ros_erle_pattern_follower
-A ROS package to control a copter so that it follows ArUco patterns with the bottom camera.
+# Drone-visual-servoing-with-a-controller-in-MATLAB
+A ROS package to control a copter so that it follows ArUco patterns with the bottom camera. When using in Loiter mode, the system uses a controller in ROS. When the drone is in Guided mode, the system is connected to a controller in MATLAB/Simulink. 
+
+# Video demo
+[![Video demo](https://img.youtube.com/vi/PvhfW_DNqPI/0.jpg)](https://www.youtube.com/watch?v=PvhfW_DNqPI)
 
 # To do list
-1. Connect this simulator to a FOPD controller
-1.1 Let this node publish a topic called `\matlab\err`;
-1.2 Modify the ArUco model to make it not move;
-1.3 Test if Simulink can get the positon error (Topic `\matlab\err`) as expected;
-1.4 Add a P controller to make a close loop;
-1.5 Add a PID controller to make a close loop;
-1.6 Send data to Terminal and copy them to text file;
-1.7 Add FOPD controller and log data;
-1.8 Plot curve to compare the captured data.
+* Modify the ArUco model to make it move in a square slowly;
+* Add a PID controller to make a close loop;
+* Send data to Terminal and copy them to text file;
+* Add FOPD controller and log data;
+* Plot curve to compare the captured data.
 
 Quick setup:
 ```bash
@@ -34,13 +33,12 @@ Learn how to make this work on Gazebo simulator [here](http://docs.erlerobotics.
 
 Run related Simulink file
 ---------------------
-File name: cmd_vel.slx
 Launch MATLAB;
 On the MATLAB command line, execute the following:
 ```matlab
 rosinit
 ```
-Open this Simulink file and run the model.
+Open this Simulink file (cmd_vel.slx) and run the model.
 
 Learn more [here](https://www.mathworks.com/help/robotics/examples/get-started-with-ros-in-simulink.html)
 
@@ -55,3 +53,7 @@ Links
 -----
 
   - [Erle Robotics](www.erlerobotics.com)
+  
+Acknowledgment
+-----------------
+  - [ros_erle_pattern_follower project](https://github.com/erlerobot/ros_erle_pattern_follower)
