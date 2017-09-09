@@ -2,7 +2,7 @@
 A ROS package to control a copter so that it follows ArUco patterns with the bottom camera. When using in Loiter mode, the system uses a controller in ROS. When the drone is in Guided mode, the system is connected to a controller in MATLAB/Simulink. 
 
 # Video demo
-[![Video demo](https://img.youtube.com/vi/PvhfW_DNqPI/0.jpg)](https://www.youtube.com/watch?v=PvhfW_DNqPI)
+[![Video demo](https://img.youtube.com/vi/e9FENWM6F0Q/0.jpg)](https://www.youtube.com/watch?v=e9FENWM6F0Q)
 
 # To do list
 * Modify the ArUco model to make it move in a square slowly;
@@ -12,6 +12,7 @@ A ROS package to control a copter so that it follows ArUco patterns with the bot
 * Plot curve to compare the captured data.
 
 Quick setup:
+
 ```bash
 # Within a catkin directory
 cd src
@@ -38,9 +39,13 @@ On the MATLAB command line, execute the following:
 ```matlab
 rosinit
 ```
-Open this Simulink file (cmd_vel.slx) and run the model.
+Open this Simulink file (pattern_follow_body_frame.slx) and run the model.
 
-Learn more [here](https://www.mathworks.com/help/robotics/examples/get-started-with-ros-in-simulink.html)
+Learn more:
+
+https://www.mathworks.com/help/robotics/examples/get-started-with-ros-in-simulink.html
+
+https://www.mathworks.com/matlabcentral/answers/355617-robot-system-toolbox-doesn-t-support-the-message-type-mavros_msgs-positiontarget
 
 Support forums and chats
 ------------------------
