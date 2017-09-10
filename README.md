@@ -11,18 +11,58 @@ A ROS package to control a copter so that it follows ArUco patterns with the bot
 * Add FOPD controller and log data;
 * Plot curve to compare the captured data.
 
-# Quick setup:
+# Setup steps:
+
+* Set up development environment according to 
+http://docs.erlerobotics.com/simulation/configuring_your_environment
+
+* Run the following commands to set up this project:
 
 ```bash
 # Within a catkin directory
 cd src
-git clone https://github.com/erlerobot/ros_erle_pattern_follower
+git clone https://github.com/cnpcshangbo/ros_erle_pattern_follower
 cd ..; 
 catkin_make --pkg ros_erle_pattern_follower
+```
 
+* Install MATLAB Robotics System Toolbox
+https://www.mathworks.com/help/robotics/index.html?s_cid=doc_flyout
+
+* Install the package to support custom message type and add the custom message to MATLAB
+https://www.mathworks.com/matlabcentral/answers/355617-robot-system-toolbox-doesn-t-support-the-message-type-mavros_msgs-positiontarget
+
+# Start the simulation
+* Launch Ardupilot & Gazebo
+
+```bash
+Terminal 1:
+
+source ~/simulation/ros_catkin_ws/devel/setup.bash
+cd ~/simulation/ardupilot/ArduCopter
+../Tools/autotest/sim_vehicle.sh -j 4 -f Gazebo
+# once MAVProxy has launched completely, load the parameters
+param load /home/bshang2/simulation/ardupilot/Tools/Frame_params/Erle-Copter.param
+
+Terminal 2:
+source ~/simulation/ros_catkin_ws/devel/setup.bash
+roslaunch ardupilot_sitl_gazebo_plugin erlecopter_mark.launch
+
+Terminal 1:
+mode GUIDED
+arm throttle
+takeoff 2
+param set SYSID_MYGCS 1
+```
+
+* Run this project
+
+```bash
 source devel/setup.bash
 rosrun ros_erle_pattern_follower ros_erle_pattern_follower
 ```
+
+* Run the Simulink file
 
 Simulating this package
 ------------------------
