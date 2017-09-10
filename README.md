@@ -11,7 +11,7 @@ A ROS package to control a copter so that it follows ArUco patterns with the bot
 * Add FOPD controller and log data;
 * Plot curve to compare the captured data.
 
-Quick setup:
+# Quick setup:
 
 ```bash
 # Within a catkin directory
