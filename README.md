@@ -59,7 +59,7 @@ param set SYSID_MYGCS 1
 * Run this project
 
 ```bash
-source devel/setup.bash
+source ~/simulation/ros_catkin_ws/devel/setup.bash
 rosrun ros_erle_pattern_follower ros_erle_pattern_follower
 ```
 * Launch MATLAB and type command: "rosinit"
