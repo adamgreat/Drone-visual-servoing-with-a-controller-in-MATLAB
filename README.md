@@ -62,7 +62,7 @@ param set SYSID_MYGCS 1
 source devel/setup.bash
 rosrun ros_erle_pattern_follower ros_erle_pattern_follower
 ```
-
+* Launch MATLAB and type command: "rosinit"
 * Run the Simulink file
 
 Simulating this package
