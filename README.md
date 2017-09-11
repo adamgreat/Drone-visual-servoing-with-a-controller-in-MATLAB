@@ -41,8 +41,9 @@ Terminal 1:
 source ~/simulation/ros_catkin_ws/devel/setup.bash
 cd ~/simulation/ardupilot/ArduCopter
 ../Tools/autotest/sim_vehicle.sh -j 4 -f Gazebo
-# once MAVProxy has launched completely, load the parameters
+# Once MAVProxy has launched completely, load the parameters
 param load /home/bshang2/simulation/ardupilot/Tools/Frame_params/Erle-Copter.param
+# Change the "bshang2" to your username.
 
 Terminal 2:
 source ~/simulation/ros_catkin_ws/devel/setup.bash
