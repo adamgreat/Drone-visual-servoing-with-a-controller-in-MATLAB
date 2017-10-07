@@ -5,7 +5,7 @@ A ROS package to control a copter so that it follows ArUco patterns with the bot
 [![Video demo](https://img.youtube.com/vi/e9FENWM6F0Q/0.jpg)](https://www.youtube.com/watch?v=e9FENWM6F0Q)
 
 # To do list
-* Modify the ArUco model to make it move in a square slowly;
+* Test FOPD controller;
 * Add a PID controller to make a close loop;
 * Send data to Terminal and copy them to text file;
 * Add FOPD controller and log data;
