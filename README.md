@@ -59,7 +59,7 @@ takeoff 2
 param set SYSID_MYGCS 1
 ```
 
-* Run this project
+* Run this project in Terminal 3
 
 ```bash
 source ~/simulation/ros_catkin_ws/devel/setup.bash
