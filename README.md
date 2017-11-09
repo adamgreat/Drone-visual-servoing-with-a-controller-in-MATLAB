@@ -32,7 +32,8 @@ References:
 
   - [Erle Robotics](www.erlerobotics.com)
 
-  - YouTube video for Simulating the package [![YouTube video](http://img.youtube.com/vi/xNengdC0_8s/0.jpg)](http://www.youtube.com/watch?v=xNengdC0_8s)
+  - YouTube video for Simulating the package 
+  [![YouTube video](http://img.youtube.com/vi/xNengdC0_8s/0.jpg)](http://www.youtube.com/watch?v=xNengdC0_8s)
 
   - [Learn how to make this work on Gazebo simulator](http://docs.erlerobotics.com/simulation/vehicles/erle_copter/tutorial_5).
   
