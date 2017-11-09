@@ -27,12 +27,17 @@ Support forums and chats
 Please ask your questions not related to bugs/feauture requests on:
 - [Erle Robotics Forum](http://forum.erlerobotics.com/)
 
-
-Links
+References:
 -----
 
   - [Erle Robotics](www.erlerobotics.com)
+
+  - YouTube video for Simulating the package [![YouTube video](http://img.youtube.com/vi/xNengdC0_8s/0.jpg)](http://www.youtube.com/watch?v=xNengdC0_8s)
+
+  - [Learn how to make this work on Gazebo simulator](http://docs.erlerobotics.com/simulation/vehicles/erle_copter/tutorial_5).
   
-Acknowledgment
------------------
   - [ros_erle_pattern_follower project](https://github.com/erlerobot/ros_erle_pattern_follower)
+
+  - [Get started with ROS in Simulink](https://www.mathworks.com/help/robotics/examples/get-started-with-ros-in-simulink.html)
+
+  - [Custom message type in MATLAB](https://www.mathworks.com/matlabcentral/answers/355617-robot-system-toolbox-doesn-t-support-the-message-type-mavros_msgs-positiontarget)
