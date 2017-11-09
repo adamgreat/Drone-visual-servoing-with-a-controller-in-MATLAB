@@ -13,83 +13,13 @@ A ROS package to control a copter so that it follows ArUco patterns with the bot
 
 # Setup steps:
 
-* Set up development environment according to 
-http://docs.erlerobotics.com/simulation/configuring_your_environment
-
-* Run the following commands to set up this project:
-
-```bash
-# Within a catkin directory
-cd src
-git clone https://github.com/cnpcshangbo/ros_erle_pattern_follower
-cd ..; 
-catkin_make --pkg ros_erle_pattern_follower
-```
-
-* Install MATLAB Robotics System Toolbox
-https://www.mathworks.com/help/robotics/index.html?s_cid=doc_flyout
-
-* Install the package to support custom message type and add the custom message to MATLAB
-https://www.mathworks.com/matlabcentral/answers/355617-robot-system-toolbox-doesn-t-support-the-message-type-mavros_msgs-positiontarget
-
-* FOTF toolbox: A collection of MATLAB files for fractional calculus and fractional-order control
-https://www.mathworks.com/matlabcentral/fileexchange/60874-fotf-toolbox
+Please read this page:
+https://github.com/cnpcshangbo/Drone-visual-servoing-with-a-controller-in-MATLAB/wiki/Setting-up
 
 # Start the simulation
-* Launch Ardupilot & Gazebo
 
-```bash
-Terminal 1:
-
-source ~/simulation/ros_catkin_ws/devel/setup.bash
-cd ~/simulation/ardupilot/ArduCopter
-../Tools/autotest/sim_vehicle.sh -j 4 -f Gazebo
-# Once MAVProxy has launched completely, load the parameters
-param load /home/bshang2/simulation/ardupilot/Tools/Frame_params/Erle-Copter.param
-# Change the "bshang2" to your username.
-
-Terminal 2:
-source ~/simulation/ros_catkin_ws/devel/setup.bash
-roslaunch ardupilot_sitl_gazebo_plugin erlecopter_mark.launch
-
-Terminal 1:
-mode GUIDED
-arm throttle
-takeoff 2
-param set SYSID_MYGCS 1
-```
-
-* Run this project in Terminal 3
-
-```bash
-source ~/simulation/ros_catkin_ws/devel/setup.bash
-rosrun ros_erle_pattern_follower ros_erle_pattern_follower
-```
-* Launch MATLAB and type command: "rosinit"
-* Run the Simulink file
-
-Simulating this package
-------------------------
-YouTube video:
-
-[![YouTube video](http://img.youtube.com/vi/xNengdC0_8s/0.jpg)](http://www.youtube.com/watch?v=xNengdC0_8s)
-
-Learn how to make this work on Gazebo simulator [here](http://docs.erlerobotics.com/simulation/vehicles/erle_copter/tutorial_5).
-
-Run related Simulink file
----------------------
-Launch MATLAB;
-On the MATLAB command line, execute the following:
-```matlab
-rosinit
-```
-Open this Simulink file (pattern_follow_body_frame.slx) and run the model.
-
-Learn more:
-
-https://www.mathworks.com/help/robotics/examples/get-started-with-ros-in-simulink.html
-
-https://www.mathworks.com/matlabcentral/answers/355617-robot-system-toolbox-doesn-t-support-the-message-type-mavros_msgs-positiontarget
+Please read this page:
+https://github.com/cnpcshangbo/Drone-visual-servoing-with-a-controller-in-MATLAB/wiki/Start-the-simulation
 
 Support forums and chats
 ------------------------
