@@ -165,11 +165,13 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
 
         pub.publish(msg);
         //
-        err_msg.x=ErX;
-        err_msg.y=ErY;
-        err_pub.publish(err_msg);
-        ROS_INFO("err: [%f, %f]", err_msg.x, err_msg.y);
-
+        if(ErX!=0 || ErY!=0)
+        {
+            err_msg.x=ErX;
+            err_msg.y=ErY;
+            err_pub.publish(err_msg);
+            ROS_INFO("err: [%f, %f]", err_msg.x, err_msg.y);
+        }
         cv::imshow("view", InImage);
         cv::waitKey(30);
     }
